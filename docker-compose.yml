@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  webpacker:
+    image: awesome-articles_web:latest
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+    command: ./bin/webpack-dev-server
+    volumes:
+      - .:/awesome-articles
+    ports:
+      - '3035:3035'
+  maildev:
+    image: djfarrelly/maildev
+    command: bash -c maildev -w 1080 -s 1025 -v
+    ports:
+      - '1080:1080'
+  web:
+    build: .
+    image: awesome-articles_web:latest
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/awesome-articles
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+      - maildev
+      - webpacker

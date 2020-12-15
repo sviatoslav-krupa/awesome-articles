@@ -7,25 +7,20 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f5851c9a1f90b6b8d8bb/test_coverage)](https://codeclimate.com/github/sviatoslav-krupa/awesome-articles/test_coverage)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop-hq/rubocop)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Installation
 
-Things you may want to cover:
+## 1. Install Dependencies
+- Install [Docker](https://www.docker.com/get-started).
+- Install [Docker Compose](https://docs.docker.com/compose/install/).
 
-* Ruby version
+## 2. Run Docker Containers
+- `$ docker-compose build`
+- `$ docker-compose up`
 
-* System dependencies
+## 3. Set Up Database
+- `$ docker-compose run web rails db:setup`
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 4. Verify Installation
+- You should be able to see the application at http://localhost:3000/.
+- You should be able to view local emails at http://localhost:1080/.
+- All specs should pass when running `$ docker-compose run web rspec`.
