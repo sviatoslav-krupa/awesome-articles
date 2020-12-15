@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'validations' do
-    subject { build(:user) }
+    subject(:user) { build(:user) }
 
     it { is_expected.to validate_presence_of(:first_name) }
     it { is_expected.to validate_presence_of(:last_name) }
@@ -49,7 +49,9 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
 
     context 'when an email is valid' do
-      let(:user) { build(:user, email: 'test.user@example.com') }
+      before do
+        user.email = 'test.user@example.com'
+      end
 
       it 'validates the email format' do
         expect(user).to be_valid
@@ -57,7 +59,9 @@ RSpec.describe User, type: :model do
     end
 
     context 'when an email is invalid' do
-      let(:user) { build(:user, email: 'test user') }
+      before do
+        user.email = 'test user'
+      end
 
       it 'validates the email format' do
         expect(user).not_to be_valid
@@ -68,8 +72,12 @@ RSpec.describe User, type: :model do
   describe 'methods' do
     let!(:user) { build(:user, first_name: 'Test', last_name: 'User') }
 
-    it "returns the user's full name" do
-      expect(user.full_name).to eq('Test User')
+    describe '#full_name' do
+      subject(:full_name) { user.full_name }
+
+      it "returns the user's full name" do
+        expect(full_name).to eq('Test User')
+      end
     end
   end
 end
