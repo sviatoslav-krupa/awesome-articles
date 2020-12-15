@@ -1,0 +1,5 @@
+test:
+  adapter: postgresql
+  database: awesome_articles_test
+  encoding: unicode
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
