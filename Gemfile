@@ -58,6 +58,7 @@ group :development do
 end
 
 group :test do
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'simplecov', '0.17.1', require: false
 end
